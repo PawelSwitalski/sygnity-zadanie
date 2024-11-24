@@ -44,6 +44,15 @@
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
+
+                        <form method="GET" action="{{ route('delete.account') }}">
+                            @csrf
+                            <x-dropdown-link :href="route('delete.account')"
+                                     onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Delete Account') }}
+                            </x-dropdown-link>
+                        </form>
                     </x-slot>
                 </x-dropdown>
             </div>
