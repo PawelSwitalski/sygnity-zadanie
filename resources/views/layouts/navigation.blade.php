@@ -95,6 +95,14 @@
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>
+                <form method="GET" action="{{ route('delete.account') }}">
+                    @csrf
+                    <x-responsive-nav-link :href="route('delete.account')"
+                                     onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                        {{ __('Delete Account') }}
+                    </x-responsive-nav-link>
+                </form>
             </div>
         </div>
     </div>
