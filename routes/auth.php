@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\DeleteUserController;
+use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('delete-account', [DeleteUserController::class, 'destroy'])
                 ->name('delete.account');
+
+    Route::get('update-password', [NewPasswordController::class, 'show'])
+                ->name('password.update');
+
+    Route::put('update-password', [NewPasswordController::class, 'update'])
+                ->name('password.update');
 });
