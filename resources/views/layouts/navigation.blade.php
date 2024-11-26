@@ -45,6 +45,15 @@
                             </x-dropdown-link>
                         </form>
 
+                        <form method="GET" action="{{ route('password.update') }}">
+                            @csrf
+                            <x-dropdown-link :href="route('password.update')"
+                                             onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Update Password') }}
+                            </x-dropdown-link>
+                        </form>
+
                         <form method="GET" action="{{ route('delete.account') }}">
                             @csrf
                             <x-dropdown-link :href="route('delete.account')"
@@ -93,6 +102,14 @@
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
+                <form method="GET" action="{{ route('password.update') }}">
+                    @csrf
+                    <x-responsive-nav-link :href="route('password.update')"
+                                           onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                        {{ __('Update Password') }}
                     </x-responsive-nav-link>
                 </form>
                 <form method="GET" action="{{ route('delete.account') }}">
