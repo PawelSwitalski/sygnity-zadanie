@@ -26,11 +26,11 @@
                 <x-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')" required autofocus />
             </div>
 
-            <!-- Email Address -->
+            <!-- Nick -->
             <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+                <x-label for="nick" :value="__('Nick')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                <x-input id="nick" class="block mt-1 w-full" type="text" name="nick" :value="old('nick')" required />
             </div>
 
             <!-- Password -->
