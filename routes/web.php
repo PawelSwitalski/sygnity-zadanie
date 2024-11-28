@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Finance\CurrencyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/favorite-currencies', [CurrencyController::class, 'index'])
+        ->name('currencies');
+
+    Route::delete('/favorite-currencies', [CurrencyController::class, 'destroy'])
+        ->name('currencies.destroy');
+
+    Route::post('/favorite-currencies/', [CurrencyController::class, 'store'])
+        ->name('currencies.store');
+});
+
+require __DIR__.'/auth.php';
