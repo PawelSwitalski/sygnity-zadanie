@@ -31,4 +31,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function favoriteCurrencies()
+    {
+        return $this->belongsToMany(
+            Currency::class,
+            'currency_user',
+            'user_id',
+            'currency_code',
+            'id',
+            'code'
+        );
+    }
 }
