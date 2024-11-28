@@ -5,9 +5,11 @@ namespace App\Services;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
-class CurrencyService
+class NbpService
 {
     protected $apiUrlCurrency = 'https://api.nbp.pl/api/exchangerates/rates/c';
+
+    protected $apiUrlGoldLastTen = 'https://api.nbp.pl/api/cenyzlota/last/30/?format=json';
 
     public function getCurrencyData($currencyCode)
     {
@@ -21,6 +23,20 @@ class CurrencyService
             return null;
         });
     }
+
+    public function getGoldLastTenDays()
+    {
+        return Cache::remember("gold", now()->addHours(2), function () {
+            $response = Http::get($this->apiUrlGoldLastTen);
+
+            if ($response->successful()) {
+                return $response->json();
+            }
+
+            return null;
+        });
+    }
 }
 
 // https://api.nbp.pl/api/exchangerates/rates/{table}/{code}/today/
+// https://api.nbp.pl/api/cenyzlota/last/10/?format=json

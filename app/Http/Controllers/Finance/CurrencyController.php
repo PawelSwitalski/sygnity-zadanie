@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Finance;
 
 use App\Http\Controllers\Controller;
 use App\Models\Currency;
-use App\Services\CurrencyService;
+use App\Services\NbpService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class CurrencyController extends Controller
 {
     protected $currencyService;
 
-    public function __construct(CurrencyService $currencyService)
+    public function __construct(NbpService $currencyService)
     {
         $this->currencyService = $currencyService;
     }

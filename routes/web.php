@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Finance\CurrencyController;
+use App\Http\Controllers\Finance\GoldController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/favorite-currencies/', [CurrencyController::class, 'store'])
         ->name('currencies.store');
+
+    Route::get("/gold", [GoldController::class, 'index'])
+        ->name('gold');
 });
 
 require __DIR__.'/auth.php';
