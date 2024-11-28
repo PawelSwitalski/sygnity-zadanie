@@ -1,4 +1,4 @@
-<table {{ $attributes->merge(['class' => 'currency-table shadow-sm border w-full']) }}>
+<table {{ $attributes->merge(['class' => 'currency-table shadow-sm border w-full h-full table-auto']) }}>
     <thead>
     <tr class="border-b bg-gray-50 text-left font-medium text-gray-500 uppercase tracking-wider text-xs sm:text-sm md:text-md">
         <th class="px-2 py-2 sm:px-4 border-r">Currency Name</th>
@@ -8,7 +8,7 @@
         <th class="px-2 py-2 sm:px-4 border-r">Remove</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="overflow-y-auto">
     @foreach($favoriteCurrencies as $currency)
         <tr class="text-xs sm:text-sm md:text-md">
             <td class="px-2 py-3 sm:px-4 border-b border-r border-gray-200 text-gray-900">
@@ -17,7 +17,7 @@
             <td class="px-2 py-3 sm:px-4 border-b border-r border-gray-200 text-gray-900">
                 {{ $currency->code }}
             </td>
-            <td class="px-2 py-3 sm:px-4 border-b border-r border-gray-200 text-gray-900">
+            <td class="px-2 py-3 sm:px-4 text-clip border-b border-r border-gray-200 text-gray-900">
                 {{ $currency->bid }}
             </td>
             <td class="px-2 py-3 sm:px-4 border-b border-r border-gray-200 text-gray-900">
@@ -30,8 +30,10 @@
 
                     <!-- Pass the currency ID or any other necessary parameter here -->
                     <input type="hidden" name="currency_id" value="{{ $currency->code }}">
-                    <x-danger-button class="text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-2">
-                        {{ __('Remove') }}
+                    <x-danger-button class="scale-75 sm:scale-100 text-xs sm:text-sm px-1 py-1 sm:px-3 sm:py-2">
+                        <spane class="hidden sm:block">
+                            {{ __('Remove') }}
+                        </spane>
                     </x-danger-button>
                 </form>
             </td>

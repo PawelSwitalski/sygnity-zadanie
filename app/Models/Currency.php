@@ -17,47 +17,27 @@ class Currency extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'code'];
-
-    /**
-     * Temporary attributes: 'ask' and 'bid'
-     *
-     * These are not stored in the database but can be accessed like normal attributes.
-     */
-    private $tempAttributes = [];
+    protected $fillable = ['name', 'code', 'ask', 'bid'];
 
     public function users()
     {
         return $this->belongsToMany(User::class, 'currency_user');
     }
 
-    /**
-     * Getter for temporary attributes.
-     *
-     * @param string $key
-     * @return mixed
-     */
-    public function __get($key)
+    // Custom static method to create a Currency object with API data
+    public static function fromApiData($apiData, $currency): Currency
     {
-        if (array_key_exists($key, $this->tempAttributes)) {
-            return $this->tempAttributes[$key];
-        }
 
-        return parent::__get($key);
-    }
+        $rates = $apiData['rates'];
 
-    /**
-     * Setter for temporary attributes.
-     *
-     * @param string $key
-     * @param mixed $value
-     */
-    public function __set($key, $value)
-    {
-        if (in_array($key, ['ask', 'bid'])) {
-            $this->tempAttributes[$key] = $value;
-        } else {
-            parent::__set($key, $value);
-        }
+        $bid = (string) $rates[0]['bid'];
+        $ask = (string) $rates[0]['ask'];
+
+        return new self([
+            'name' => $currency['name'],
+            'code' => $currency['code'],
+            'ask' => $ask,
+            'bid' => $bid
+        ]);
     }
 }

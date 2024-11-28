@@ -4,16 +4,27 @@ namespace App\Http\Controllers\Finance;
 
 use App\Http\Controllers\Controller;
 use App\Models\Currency;
+use App\Services\CurrencyService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CurrencyController extends Controller
 {
+    protected $currencyService;
+
+    public function __construct(CurrencyService $currencyService)
+    {
+        $this->currencyService = $currencyService;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         $userCurrencies = auth()->user()->favoriteCurrencies()->get();
 
@@ -23,8 +34,19 @@ class CurrencyController extends Controller
         // Retrieve all other currencies not in the user's favorites
         $otherCurrencies = Currency::whereNotIn('code', $excludedCurrencyCodes)->get();
 
+
+        $favoritesWithDetails = $userCurrencies->map(function ($currency) {
+            $apiData = $this->currencyService->getCurrencyData($currency->code);
+
+            return Currency::fromApiData($apiData, [
+                'name' => $currency->name,
+                'code' => $currency->code,
+            ]);
+        });
+
+
         return view('finance.favorite-currencies', [
-            'favoriteCurrencies' => $userCurrencies,
+            'favoriteCurrencies' => $favoritesWithDetails,
             'otherCurrencies' => $otherCurrencies,
         ]);
     }
@@ -32,7 +54,7 @@ class CurrencyController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -43,7 +65,7 @@ class CurrencyController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -63,7 +85,7 @@ class CurrencyController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Currency  $currency
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Currency $currency)
     {
@@ -74,7 +96,7 @@ class CurrencyController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Currency  $currency
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Currency $currency)
     {
@@ -86,7 +108,7 @@ class CurrencyController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Currency  $currency
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, Currency $currency)
     {
@@ -97,7 +119,7 @@ class CurrencyController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Request $request)
     {
