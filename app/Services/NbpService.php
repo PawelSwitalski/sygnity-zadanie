@@ -9,12 +9,12 @@ class NbpService
 {
     protected $apiUrlCurrency = 'https://api.nbp.pl/api/exchangerates/rates/c';
 
-    protected $apiUrlGoldLastTen = 'https://api.nbp.pl/api/cenyzlota/last/30/?format=json';
+    protected $apiUrlGoldLastTen = 'https://api.nbp.pl/api/cenyzlota/last/10/?format=json';
 
     public function getCurrencyData($currencyCode)
     {
         return Cache::remember("currency_data_{$currencyCode}", now()->addHours(1), function () use ($currencyCode) {
-            $response = Http::get("{$this->apiUrlCurrency}/{$currencyCode}/today/?format=json");
+            $response = Http::get("{$this->apiUrlCurrency}/{$currencyCode}/last/?format=json");
 
             if ($response->successful()) {
                 return $response->json();
@@ -38,5 +38,5 @@ class NbpService
     }
 }
 
-// https://api.nbp.pl/api/exchangerates/rates/{table}/{code}/today/
+// https://api.nbp.pl/api/exchangerates/rates/{table}/{code}/last/
 // https://api.nbp.pl/api/cenyzlota/last/10/?format=json
