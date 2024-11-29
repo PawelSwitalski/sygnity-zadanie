@@ -38,10 +38,7 @@ class CurrencyController extends Controller
         $favoritesWithDetails = $userCurrencies->map(function ($currency) {
             $apiData = $this->currencyService->getCurrencyData($currency->code);
 
-            return Currency::fromApiData($apiData, [
-                'name' => $currency->name,
-                'code' => $currency->code,
-            ]);
+            return Currency::fromApiData($apiData);
         });
 
 
@@ -85,11 +82,16 @@ class CurrencyController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Currency  $currency
-     * @return Response
+     * @return RedirectResponse
      */
-    public function show(Currency $currency)
+    public function show(Request $request)
     {
-        //
+        $currencyCode = $request->query('code');
+        $date = $request->query('date');
+
+        $currency = Currency::fromApiData($this->currencyService->getCurrencyData($currencyCode, $date));
+
+        return back()->with(['searched_currency' => $currency]);
     }
 
     /**

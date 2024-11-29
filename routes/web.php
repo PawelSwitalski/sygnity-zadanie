@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Finance\CurrencyController;
 use App\Http\Controllers\Finance\GoldController;
 use Illuminate\Support\Facades\Route;
@@ -19,13 +20,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+
     Route::get('/favorite-currencies', [CurrencyController::class, 'index'])
         ->name('currencies');
+
+    Route::get('/dashboard/search', [CurrencyController::class, 'show'])
+        ->name('currencies.search');
 
     Route::delete('/favorite-currencies', [CurrencyController::class, 'destroy'])
         ->name('currencies.destroy');

@@ -11,17 +11,28 @@ class NbpService
 
     protected $apiUrlGoldLastTen = 'https://api.nbp.pl/api/cenyzlota/last/10/?format=json';
 
-    public function getCurrencyData($currencyCode)
+    public function getCurrencyData($currencyCode, $date = null)
     {
-        return Cache::remember("currency_data_{$currencyCode}", now()->addHours(1), function () use ($currencyCode) {
-            $response = Http::get("{$this->apiUrlCurrency}/{$currencyCode}/last/?format=json");
+        if ($date == null) {
+            return Cache::remember("currency_data_{$currencyCode}", now()->addHours(1), function () use ($currencyCode) {
+                $response = Http::get("{$this->apiUrlCurrency}/{$currencyCode}/last/?format=json");
+
+                if ($response->successful()) {
+                    return $response->json();
+                }
+
+                return null;
+            });
+        } else {
+            $url = "{$this->apiUrlCurrency}/{$currencyCode}/{$date}/?format=json";
+            $response = Http::get($url);
 
             if ($response->successful()) {
                 return $response->json();
             }
 
             return null;
-        });
+        }
     }
 
     public function getGoldLastTenDays()

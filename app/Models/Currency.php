@@ -12,6 +12,8 @@ class Currency extends Model
     // Disable automatic timestamp handling
     public $timestamps = false;
 
+    protected $table = 'currencies';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,20 +26,23 @@ class Currency extends Model
         return $this->belongsToMany(User::class, 'currency_user');
     }
 
-    // Custom static method to create a Currency object with API data
-    public static function fromApiData($apiData, $currency): Currency
+
+
+    public static function fromApiData($apiData): Currency
     {
 
-        $rates = $apiData['rates'];
+        // Extract the rates from the data
+        $rates = $apiData['rates'][0];
 
-        $bid = (string) $rates[0]['bid'];
-        $ask = (string) $rates[0]['ask'];
+        // Convert the bid and ask values to strings
+        $bid = (string) $rates['bid'];
+        $ask = (string) $rates['ask'];
 
         return new self([
-            'name' => $currency['name'],
-            'code' => $currency['code'],
-            'ask' => $ask,
-            'bid' => $bid
+            'name' => $apiData['currency'],  // Currency name
+            'code' => $apiData['code'],      // Currency code
+            'ask'  => $ask,               // Ask rate
+            'bid'  => $bid,               // Bid rate
         ]);
     }
 }
