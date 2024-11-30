@@ -89,9 +89,23 @@ class CurrencyController extends Controller
         $currencyCode = $request->query('code');
         $date = $request->query('date');
 
-        $currency = Currency::fromApiData($this->currencyService->getCurrencyData($currencyCode, $date));
+        $apiFail = false;
 
-        return back()->with(['searched_currency' => $currency]);
+        try {
+            $currencyData = $this->currencyService->getCurrencyData($currencyCode, $date);
+            $currency = Currency::fromApiData($currencyData);
+        } catch (\Throwable $e)
+        {
+            $currency = null;
+            $apiFail = true;
+        }
+
+
+        return back()->with([
+            'searched_currency' => $currency,
+            'selected_date' => $date,
+            'apiFail' => $apiFail,
+        ]);
     }
 
     /**
