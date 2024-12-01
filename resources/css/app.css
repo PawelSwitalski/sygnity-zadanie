@@ -6,3 +6,19 @@
 .currency-table {
     width: 100%;
 }
+
+.currency-table-head-tr {
+    @apply border-b bg-gray-50 text-left font-medium text-gray-500 uppercase tracking-wider text-xs sm:text-sm md:text-base;
+}
+
+.currency-table-th {
+    @apply px-2 py-2 sm:px-4 border-r;
+}
+
+.currency-table-body-td {
+    @apply px-2 py-3 sm:px-4 border-b border-r border-gray-200 text-gray-900;
+}
+
+.white-container-div {
+    @apply bg-white overflow-hidden shadow-sm sm:rounded-lg px-0 py-2 sm:p-0 md:p-4 lg:p-6 border-b border-gray-200;
+}
