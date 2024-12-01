@@ -27,5 +27,6 @@ return [
     'Gold last 10 days' => 'Złoto ostatnie 10 dni',
 
     'Find' => 'Szukaj',
+    'API error. Make sure the selected currency or date is correct. No data is saved for holidays, Saturdays and Sundays.' => 'Błąd API. Upewnij się, że wybrana waluta lub data jest poprawna. Nie ma danych dla świąt, sobót i niedziel.',
 
 ];

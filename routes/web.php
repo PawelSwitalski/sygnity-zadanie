@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('register');
 });
 
 Route::post('language-switch', [\App\Http\Controllers\LanguageController::class, 'languageSwitch'])

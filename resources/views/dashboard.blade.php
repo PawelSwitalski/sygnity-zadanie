@@ -64,7 +64,7 @@
             @if(session('apiFail'))
                 <div class="white-container-div">
                     <div class="p-2 xxs:p-0">
-                        {{ __("API error. Make sure the selected currency or date is correct. No data is saved for holidays, Saturdays and Sundays.") }}
+                        {{ __("currency.API error. Make sure the selected currency or date is correct. No data is saved for holidays, Saturdays and Sundays.") }}
                     </div>
                 </div>
             @endif
