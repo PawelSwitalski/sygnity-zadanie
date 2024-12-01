@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('language-switch', [\App\Http\Controllers\LanguageController::class, 'languageSwitch'])
+    ->name('language.switch');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])

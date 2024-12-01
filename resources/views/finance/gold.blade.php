@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Gold last 10 days') }}
+            {{ __('currency.Gold last 10 days') }}
         </h2>
     </x-slot>
 

@@ -26,7 +26,7 @@
                     <div class="flex justify-center mt-2 md:mt-6 mb-4">
                         <!-- Add button -->
                         <x-button type="submit" class="text-xs sm:text-sm md:text-md px-4 py-2 ">
-                            {{ __('Find') }}
+                            {{ __('currency.Find') }}
                         </x-button>
                     </div>
                 </form>
@@ -36,16 +36,16 @@
                     <table class="currency-table shadow-sm border w-full h-full table-auto">
                         <thead>
                         <tr class="currency-table-head-tr">
-                            <th class="currency-table-th">Currency Name</th>
-                            <th class="currency-table-th">Currency Code</th>
-                            <th class="currency-table-th">Bid</th>
-                            <th class="currency-table-th">Ask</th>
+                            <th class="currency-table-th">{{ __('currency.Currency Name') }}</th>
+                            <th class="currency-table-th">{{ __('currency.Currency Code') }}</th>
+                            <th class="currency-table-th">{{ __('currency.Bid') }}</th>
+                            <th class="currency-table-th">{{ __('currency.Ask') }}</th>
                         </tr>
                         </thead>
                         <tbody class="overflow-y-auto">
                             <tr class="text-xs sm:text-sm md:text-md">
                                 <td class="currency-table-body-td">
-                                    {{ session('searched_currency')['name'] }}
+                                    {{ __('currency.' . session('searched_currency')['name']) }}
                                 </td>
                                 <td class="currency-table-body-td">
                                     {{ session('searched_currency')['code'] }}

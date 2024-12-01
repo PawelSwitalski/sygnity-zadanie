@@ -698,10 +698,6 @@ select {
   margin-left: auto;
   margin-right: auto;
 }
-.my-0 {
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
 .-ml-px {
   margin-left: -1px;
 }
@@ -1003,6 +999,9 @@ select {
 .object-scale-down {
   -o-object-fit: scale-down;
      object-fit: scale-down;
+}
+.p-1 {
+  padding: 0.25rem;
 }
 .p-2 {
   padding: 0.5rem;
@@ -1546,11 +1545,6 @@ select {
   .sm\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
-  }
-
-  .sm\:my-4 {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
   }
 
   .sm\:ml-0 {
